@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        playerRb.AddForce(new Vector3(movementInput.x, 0, movementInput.y) * speed);
+        playerRb.AddTorque(new Vector3(movementInput.y, 0, -movementInput.x) * speed);
     }
 
     void OnTriggerEnter(Collider other)
@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
         {
             other.gameObject.GetComponent<Coin>().collectCoin();
             
+        } else if (other.gameObject.CompareTag("enemy"))
+        {
+            other.gameObject.GetComponent<GameManager>().GameOver();
         }
     }
 }
